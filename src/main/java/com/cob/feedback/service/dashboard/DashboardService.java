@@ -3,6 +3,7 @@ package com.cob.feedback.service.dashboard;
 import com.cob.feedback.model.Feedback;
 import com.cob.feedback.model.dashboard.FeedbackNumbersModel;
 import com.cob.feedback.repository.DashboardRepository;
+import com.cob.feedback.utils.PercentageCalculator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class DashboardService {
     }
 
     public FeedbackNumbersModel calculateNumberOfFeedbackFeeling(Long startDate, Long endDate) {
-        List<Feedback>  models = findByDateRange(startDate , endDate);
+        List<Feedback> models = findByDateRange(startDate, endDate);
         AtomicInteger vGood = new AtomicInteger();
         AtomicInteger good = new AtomicInteger();
         AtomicInteger vSad = new AtomicInteger();
@@ -43,12 +44,16 @@ public class DashboardService {
             if (feedback.getFeedbackValue().equals("Frown"))
                 vSad.getAndIncrement();
         });
-       return FeedbackNumbersModel.builder()
+        return FeedbackNumbersModel.builder()
                 .total(models.size())
                 .vGoodFeedbackTotal(vGood.intValue())
+                .vGoodFeedbackPercentage(PercentageCalculator.calculatePercentage(models.size(), vGood.intValue()))
                 .goodFeedbackTotal(good.intValue())
+                .goodFeedbackPercentage(PercentageCalculator.calculatePercentage(models.size(), good.intValue()))
                 .vSadFeedbackTotal(vSad.intValue())
+                .vSadFeedbackPercentage(PercentageCalculator.calculatePercentage(models.size(), vSad.intValue()))
                 .sadFeedbackTotal(sad.intValue())
+                .sadFeedbackPercentage(PercentageCalculator.calculatePercentage(models.size(), sad.intValue()))
                 .build();
     }
 }
