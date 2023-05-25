@@ -28,7 +28,7 @@ public class DashboardService {
                 .collect(Collectors.toList());
     }
 
-    public FeedbackNumbersModel calculateNumberOfFeedbackFeeling(Long startDate, Long endDate) {
+    /*public FeedbackNumbersModel calculateNumberOfFeedbackFeeling(Long startDate, Long endDate) {
         List<Feedback> models = findByDateRange(startDate, endDate);
         AtomicInteger vGood = new AtomicInteger();
         AtomicInteger good = new AtomicInteger();
@@ -55,5 +55,5 @@ public class DashboardService {
                 .sadFeedbackTotal(sad.intValue())
                 .sadFeedbackPercentage(PercentageCalculator.calculatePercentage(models.size(), sad.intValue()))
                 .build();
-    }
+    }*/
 }

@@ -10,7 +10,10 @@ import java.util.List;
 public class Feedback {
     private Long id;
     private Long clinicId;
-    private OptionalFeedback optionalFeedback;
     private List<FeedbackItem> items;
-    private String feedbackValue;
+    private String patientName;
+
+    private String optionalFeedback;
+
+    private long createdAt;
 }

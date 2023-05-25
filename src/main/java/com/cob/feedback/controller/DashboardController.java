@@ -22,6 +22,6 @@ public class DashboardController {
     @ResponseBody
     public ResponseEntity findFeedbackNumbers(@PathVariable("startDate") Long startDate,
                                               @PathVariable("endDate") Long endDate){
-        return new ResponseEntity(dashboardService.calculateNumberOfFeedbackFeeling(startDate,endDate), HttpStatus.OK);
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 }

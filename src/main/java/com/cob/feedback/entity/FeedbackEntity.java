@@ -1,7 +1,6 @@
 package com.cob.feedback.entity;
 
 import com.cob.feedback.model.FeedbackItem;
-import com.cob.feedback.model.OptionalFeedback;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,14 +26,13 @@ public class FeedbackEntity {
     @ManyToOne
     @JoinColumn(name = "clinic_id")
     private ClinicEntity clinicId;
-    @Column(name = "optional_feedback", columnDefinition = "json")
-    @Type(type = "json")
-    private OptionalFeedback optionalFeedback;
     @Column(name = "feedback_items", columnDefinition = "json" )
     @Type(type = "json")
     private List<FeedbackItem> items;
-    @Column(name = "feedback_value")
-    private String feedbackValue;
+    @Column(name = "patient_name")
+    private String patientName;
+    @Column(name = "optional_feedback" , length = 3000)
+    private String optionalFeedback;
 
     private long createdAt;
     @PrePersist

@@ -13,9 +13,10 @@ public class FeedbackController {
 
     @Autowired
     FeedbackCreatorService creatorService;
-    @PostMapping("/create")
+
+    @PostMapping("/submit")
     @ResponseBody
-    public ResponseEntity create(@RequestBody Feedback model){
+    public ResponseEntity create(@RequestBody Feedback model) {
         return new ResponseEntity(creatorService.create(model), HttpStatus.OK);
     }
 }
