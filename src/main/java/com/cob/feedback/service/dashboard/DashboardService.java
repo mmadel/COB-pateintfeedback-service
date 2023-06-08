@@ -1,15 +1,12 @@
 package com.cob.feedback.service.dashboard;
 
 import com.cob.feedback.model.Feedback;
-import com.cob.feedback.model.dashboard.FeedbackNumbersModel;
 import com.cob.feedback.repository.DashboardRepository;
-import com.cob.feedback.utils.PercentageCalculator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
