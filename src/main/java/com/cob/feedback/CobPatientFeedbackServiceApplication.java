@@ -16,6 +16,6 @@ public class CobPatientFeedbackServiceApplication  implements CommandLineRunner 
 
 	@Override
 	public void run(String... args) throws Exception {
-		service.retrieveAverage(1685610000000L,1688158799000L,1);
+		System.out.println(service.retrieveNPS(1685610000000L,1688158799000L,1));
 	}
 }

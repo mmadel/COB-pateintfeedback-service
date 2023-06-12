@@ -8,6 +8,8 @@ import com.cob.feedback.repository.HospitalityFeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class HospitalityService implements FeedbackService {
 
@@ -27,14 +29,13 @@ public class HospitalityService implements FeedbackService {
 
     @Override
     public long retrieveNPS(long dateFrom, long dateTo, long clinicId) {
-        int total = hospitalityFeedbackRepository.getTotalNumber(dateFrom, dateTo, clinicId);
-        int[] feedbackValues = new int[3];
+        int[] feedbackValues = new int[4];
         int counter = 0;
         for (FeedbackFeeling feeling : FeedbackFeeling.values()) {
-            if (!feeling.label.equals("Good"))
-                feedbackValues[counter++] = hospitalityFeedbackRepository.count(dateFrom, dateTo, clinicId, feeling.label);
+            feedbackValues[counter++] = hospitalityFeedbackRepository.count(dateFrom, dateTo, clinicId, feeling.label);
         }
-        return NPSFormula.calculate(total, feedbackValues[0], feedbackValues[1], feedbackValues[2]);
+        long total = Arrays.stream(feedbackValues).sum();
+        return NPSFormula.calculate(total, feedbackValues[0], feedbackValues[2], feedbackValues[3]);
     }
 
     @Override
