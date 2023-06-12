@@ -2,6 +2,7 @@ package com.cob.feedback.service;
 
 import com.cob.feedback.enums.FeedbackFeeling;
 import com.cob.feedback.formula.HappyIndexFormula;
+import com.cob.feedback.formula.NPSFormula;
 import com.cob.feedback.repository.HospitalityFeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,25 @@ public class HospitalityService implements FeedbackService {
 
     @Override
     public long retrieveHappyIndex(long dateFrom, long dateTo, long clinicId) {
-        int[] feedbackValues =new int[4];
-        int counter =0;
+        int[] feedbackValues = new int[4];
+        int counter = 0;
         for (FeedbackFeeling feeling : FeedbackFeeling.values()) {
-            feedbackValues[counter++] = hospitalityFeedbackRepository.count(dateFrom, dateTo, clinicId,feeling.label);
+            feedbackValues[counter++] = hospitalityFeedbackRepository.count(dateFrom, dateTo, clinicId, feeling.label);
         }
-        return HappyIndexFormula.calculate(100, feedbackValues[0],feedbackValues[1],feedbackValues[1],feedbackValues[3]);
+        return HappyIndexFormula.calculate(100, feedbackValues[0], feedbackValues[1], feedbackValues[1], feedbackValues[3]);
 
     }
 
     @Override
     public long retrieveNPS(long dateFrom, long dateTo, long clinicId) {
-        return 0;
+        int total = hospitalityFeedbackRepository.getTotalNumber(dateFrom, dateTo, clinicId);
+        int[] feedbackValues = new int[3];
+        int counter = 0;
+        for (FeedbackFeeling feeling : FeedbackFeeling.values()) {
+            if (!feeling.label.equals("Good"))
+                feedbackValues[counter++] = hospitalityFeedbackRepository.count(dateFrom, dateTo, clinicId, feeling.label);
+        }
+        return NPSFormula.calculate(total, feedbackValues[0], feedbackValues[1], feedbackValues[2]);
     }
 
     @Override
