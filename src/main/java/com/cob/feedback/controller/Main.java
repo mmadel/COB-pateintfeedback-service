@@ -7,10 +7,10 @@ import com.cob.feedback.formula.NPSFormula;
 
 public class Main {
     public static void main(String[] args) {
-
+        System.out.println("init");
         System.out.println(HappyIndexFormula.calculate(100, 126, 60, 16, 17));
         System.out.println(NPSFormula.calculate(219, 126, 16, 17));
-        System.out.println(AverageFormula.calculate(51, 23, 12, 2));
+        System.out.println(AverageFormula.calculate(1, 1,3 , 1489020000));
     }
 
 }

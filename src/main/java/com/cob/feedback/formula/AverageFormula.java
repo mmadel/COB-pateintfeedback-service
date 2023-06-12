@@ -12,7 +12,7 @@ public class AverageFormula {
                 + positiveValue * FEEDBACK_WIGHT[1]
                 + negativeValue * FEEDBACK_WIGHT[2]
                 + vNegativeValue * FEEDBACK_WIGHT[3];
-        double denominator = vPositiveValue + positiveValue + negativeValue;
+        double denominator = vPositiveValue + positiveValue + negativeValue + vNegativeValue;
         return Double.parseDouble(df.format(numerator / denominator));
 
     }

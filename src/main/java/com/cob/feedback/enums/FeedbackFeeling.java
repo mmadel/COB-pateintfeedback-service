@@ -1,10 +1,10 @@
 package com.cob.feedback.enums;
 
 public enum FeedbackFeeling {
-    VGood("vgood"),
-    Good("good"),
-    Sad("sad"),
-    VSad("vsad");
+    VGood("VGood"),
+    Good("Good"),
+    Sad("Sad"),
+    VSad("VSad");
 
     public final String label;
 
