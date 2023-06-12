@@ -6,9 +6,9 @@ import com.cob.feedback.enums.ServiceName;
 import com.cob.feedback.formula.AverageFormula;
 import com.cob.feedback.formula.HappyIndexFormula;
 import com.cob.feedback.formula.NPSFormula;
-import com.cob.feedback.repository.ClinicalFeedbackRepository;
-import com.cob.feedback.repository.HospitalityFeedbackRepository;
-import com.cob.feedback.repository.PerformanceRepository;
+import com.cob.feedback.repository.performance.ClinicalFeedbackPerformanceRepository;
+import com.cob.feedback.repository.performance.HospitalityFeedbackPerformanceRepository;
+import com.cob.feedback.repository.performance.PerformanceRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -41,10 +41,10 @@ public class PerformanceFeedbackService {
         PerformanceRepository performanceRepository = null;
         switch (serviceName) {
             case HOSPITALITY:
-                performanceRepository = BeanFactory.getBean(HospitalityFeedbackRepository.class);
+                performanceRepository = BeanFactory.getBean(HospitalityFeedbackPerformanceRepository.class);
                 break;
             case CLINICAL:
-                performanceRepository = BeanFactory.getBean(ClinicalFeedbackRepository.class);
+                performanceRepository = BeanFactory.getBean(ClinicalFeedbackPerformanceRepository.class);
                 break;
         }
         for (FeedbackFeeling feeling : FeedbackFeeling.values()) {

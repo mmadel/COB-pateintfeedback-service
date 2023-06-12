@@ -1,4 +1,4 @@
-package com.cob.feedback.repository;
+package com.cob.feedback.repository.performance;
 
 import com.cob.feedback.entity.FeedbackEntity;
 import org.springframework.data.repository.NoRepositoryBean;

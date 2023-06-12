@@ -1,8 +1,8 @@
-package com.cob.feedback.repository;
+package com.cob.feedback.repository.performance;
 
 import org.springframework.data.jpa.repository.Query;
 
-public interface HospitalityFeedbackRepository extends PerformanceRepository {
+public interface HospitalityFeedbackPerformanceRepository extends PerformanceRepository {
     @Query(value = "select count(id) from patient_feedback a " +
             "where a.created_at>= :startDate " +
             "and a.created_at<= :endDate " +
