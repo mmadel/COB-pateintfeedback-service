@@ -15,7 +15,7 @@ public class ClinicalService  implements FeedbackService{
     }
 
     @Override
-    public long retrieveAverage(long dateFrom, long dateTo, long clinicId) {
+    public double retrieveAverage(long dateFrom, long dateTo, long clinicId) {
         return 0;
     }
 }

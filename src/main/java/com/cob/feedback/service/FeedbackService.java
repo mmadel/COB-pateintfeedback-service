@@ -5,5 +5,5 @@ public interface FeedbackService {
 
     long retrieveNPS(long dateFrom, long dateTo, long clinicId);
 
-    long retrieveAverage(long dateFrom, long dateTo, long clinicId);
+    double retrieveAverage(long dateFrom, long dateTo, long clinicId);
 }

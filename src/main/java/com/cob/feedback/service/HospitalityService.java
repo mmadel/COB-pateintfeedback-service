@@ -1,6 +1,7 @@
 package com.cob.feedback.service;
 
 import com.cob.feedback.enums.FeedbackFeeling;
+import com.cob.feedback.formula.AverageFormula;
 import com.cob.feedback.formula.HappyIndexFormula;
 import com.cob.feedback.formula.NPSFormula;
 import com.cob.feedback.repository.HospitalityFeedbackRepository;
@@ -37,7 +38,13 @@ public class HospitalityService implements FeedbackService {
     }
 
     @Override
-    public long retrieveAverage(long dateFrom, long dateTo, long clinicId) {
-        return 0;
+    public double retrieveAverage(long dateFrom, long dateTo, long clinicId) {
+        int[] feedbackValues = new int[4];
+        int counter = 0;
+        for (FeedbackFeeling feeling : FeedbackFeeling.values()) {
+            System.out.println(feeling.label);
+            feedbackValues[counter++] = hospitalityFeedbackRepository.count(dateFrom, dateTo, clinicId, feeling.label);
+        }
+        return AverageFormula.calculate(feedbackValues[0], feedbackValues[1], feedbackValues[2], feedbackValues[3]);
     }
 }
