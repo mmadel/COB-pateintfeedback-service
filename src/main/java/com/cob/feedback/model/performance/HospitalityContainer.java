@@ -10,5 +10,5 @@ import lombok.Setter;
 public class HospitalityContainer {
     private long happyIndex;
     private long nps;
-    private long average;
+    private double average;
 }
