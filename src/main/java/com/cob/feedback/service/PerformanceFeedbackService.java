@@ -16,6 +16,7 @@ import java.util.Arrays;
 @Service
 public class PerformanceFeedbackService {
     public ServiceName serviceName;
+
     public long retrieveHappyIndex(long dateFrom, long dateTo, long clinicId) {
         int[] feedbackValues = getFeedbackNumbers(dateFrom, dateTo, clinicId);
         return HappyIndexFormula.calculate(100, feedbackValues[0], feedbackValues[1], feedbackValues[1], feedbackValues[3]);
@@ -35,7 +36,7 @@ public class PerformanceFeedbackService {
         return AverageFormula.calculate(feedbackValues[0], feedbackValues[1], feedbackValues[2], feedbackValues[3]);
     }
 
-    public int[] getFeedbackNumbers(long dateFrom, long dateTo, long clinicId) {
+    private int[] getFeedbackNumbers(long dateFrom, long dateTo, long clinicId)  {
         int[] feedbackValues = new int[4];
         int counter = 0;
         PerformanceRepository performanceRepository = null;
