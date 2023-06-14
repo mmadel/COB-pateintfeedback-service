@@ -26,11 +26,11 @@ public class FeedbackRetrievalService {
                 .hospitalityContainer(buildHospitalityPerformanceIndex())
                 .clinicalContainer(buildClinicalPerformanceIndex())
                 .build();
-        if (result.isEmptyPerformanceContainer())
+        /*if (result.isEmptyPerformanceContainer())
             throw new FeedbackPerformanceException(HttpStatus.CONFLICT, FeedbackPerformanceException.PERFORMANCE_INDEX_IS_EMPTY,
                     new Object[]{
                             clinicId, DateFormatter.formatTimeStampAsString(startDate),
-                            DateFormatter.formatTimeStampAsString(endDate)});
+                            DateFormatter.formatTimeStampAsString(endDate)});*/
         return result;
     }
 
