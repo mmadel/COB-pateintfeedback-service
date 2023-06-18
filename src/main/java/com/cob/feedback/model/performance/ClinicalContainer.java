@@ -11,4 +11,13 @@ public class ClinicalContainer {
     private long happyIndex;
     private long nps;
     private double average;
+
+    @Override
+    public String toString() {
+        return "ClinicalContainer{" +
+                "happyIndex=" + happyIndex +
+                ", nps=" + nps +
+                ", average=" + average +
+                '}';
+    }
 }

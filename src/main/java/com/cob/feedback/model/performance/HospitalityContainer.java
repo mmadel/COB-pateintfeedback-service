@@ -11,4 +11,13 @@ public class HospitalityContainer {
     private long happyIndex;
     private long nps;
     private double average;
+
+    @Override
+    public String toString() {
+        return "HospitalityContainer{" +
+                "happyIndex=" + happyIndex +
+                ", nps=" + nps +
+                ", average=" + average +
+                '}';
+    }
 }
