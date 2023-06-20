@@ -12,11 +12,12 @@ public class TimeUtils {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(milliseconds);
         result[0] = cal.get(Calendar.DAY_OF_MONTH);
-        result[1] = cal.get(cal.get(Calendar.MONTH) + 1);
-        result[1] = cal.get(Calendar.YEAR);
+        result[1] = cal.get(Calendar.MONTH) + 1;
+        result[2] = cal.get(Calendar.HOUR_OF_DAY) + 1;
 
         return result;
     }
+
     public static Double[] getTimeScale(ChartTimeUnit chartTimeUnit) {
         Double[] scale = null;
         Calendar calendar = Calendar.getInstance();

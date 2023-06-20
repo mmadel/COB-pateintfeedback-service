@@ -17,7 +17,7 @@ public class PerformanceChartService {
     public ChartTimeUnit chartTimeUnit;
 
     public ChartResponse getChartData(Long startDate, Long endDate, Long clinicId) {
-        ChartDataContainer chartDataContainer = new ChartDataContainer();
+        ChartDataContainer chartDataContainer = new ChartDataContainer(chartTimeUnit);
         chartDataContainer.setPlainData(performanceChartRepository.get(startDate, endDate, clinicId));
         FeedbackGrouping.group(chartDataContainer);
         FeedbackCounter.count(chartDataContainer);

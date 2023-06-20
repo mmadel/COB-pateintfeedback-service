@@ -18,7 +18,7 @@ public class FeedbackGrouping {
                             .feedbackValue(new Gson().fromJson(resultSet[1].toString(), FeedbackQuestion.class))
                             .build();
                 }).collect(groupingBy(chartResult -> {
-                    return chartResult.getDay();
+                    return chartResult.getGroupedValue(chartDataContainer.getChartTimeUnit());
                 })));
     }
 }
