@@ -1,7 +1,8 @@
 package com.cob.feedback.model.admin.security;
 
-import com.cob.salesforce.enums.admin.UserRole;
-import com.cob.salesforce.models.admin.ClinicModel;
+
+import com.cob.feedback.enums.UserRole;
+import com.cob.feedback.model.admin.Clinic;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,5 @@ public class CurrentLoggInUser {
     private String name;
     private String address;
     private UserRole userRole;
-    private List<ClinicModel> clinics;
+    private List<Clinic> clinics;
 }
