@@ -31,7 +31,7 @@ public class PerformanceChartService {
 
     private Double[][] getServicePerformanceIndex(ChartDataContainer chartDataContainer, ServiceName serviceName) {
 
-        Double[][] hospitalityServicePerformanceIndex = new Double[3][];
+        Double[][] servicePerformanceIndex = new Double[3][];
         Double[] happyIndex = TimeUtils.getTimeScale(chartTimeUnit);
         Double[] nps = TimeUtils.getTimeScale(chartTimeUnit);
         Double[] average = TimeUtils.getTimeScale(chartTimeUnit);
@@ -51,10 +51,10 @@ public class PerformanceChartService {
                     }
 
                 });
-        hospitalityServicePerformanceIndex[0] = happyIndex;
-        hospitalityServicePerformanceIndex[1] = nps;
-        hospitalityServicePerformanceIndex[2] = average;
-        return hospitalityServicePerformanceIndex;
+        servicePerformanceIndex[0] = happyIndex;
+        servicePerformanceIndex[1] = nps;
+        servicePerformanceIndex[2] = average;
+        return servicePerformanceIndex;
     }
 
 }
