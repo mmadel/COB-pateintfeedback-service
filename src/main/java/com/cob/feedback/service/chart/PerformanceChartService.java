@@ -40,14 +40,14 @@ public class PerformanceChartService {
                 .forEach(resultSet -> {
                     switch (serviceName) {
                         case HOSPITALITY:
-                            happyIndex[resultSet.getKey().intValue()] = resultSet.getValue()[0][0];
-                            nps[resultSet.getKey().intValue()] = resultSet.getValue()[0][1];
-                            average[resultSet.getKey().intValue()] = resultSet.getValue()[0][2];
+                            happyIndex[resultSet.getKey().intValue() - 1] = resultSet.getValue()[0][0];
+                            nps[resultSet.getKey().intValue() - 1] = resultSet.getValue()[0][1];
+                            average[resultSet.getKey().intValue() - 1] = resultSet.getValue()[0][2];
                             break;
                         case CLINICAL:
-                            happyIndex[resultSet.getKey().intValue()] = resultSet.getValue()[1][0];
-                            nps[resultSet.getKey().intValue()] = resultSet.getValue()[1][1];
-                            average[resultSet.getKey().intValue()] = resultSet.getValue()[1][2];
+                            happyIndex[resultSet.getKey().intValue() - 1] = resultSet.getValue()[1][0];
+                            nps[resultSet.getKey().intValue() - 1] = resultSet.getValue()[1][1];
+                            average[resultSet.getKey().intValue() - 1] = resultSet.getValue()[1][2];
                     }
 
                 });
