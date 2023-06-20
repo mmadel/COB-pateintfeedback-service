@@ -2,8 +2,10 @@ package com.cob.feedback.controller;
 
 import com.cob.feedback.model.admin.security.LoginRequest;
 import com.cob.feedback.model.admin.security.LoginResponse;
+import com.cob.feedback.model.admin.user.UserModel;
 import com.cob.feedback.service.security.JWTGeneratorService;
 import com.cob.feedback.service.security.SecurityUser;
+import com.cob.feedback.service.user.UserCreatorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/authentication")
 public class AuthenticationController {
     @Autowired
     JWTGeneratorService jwtGeneratorService;
@@ -24,6 +26,8 @@ public class AuthenticationController {
 
     @Autowired
     ModelMapper mapper;
+    @Autowired
+    UserCreatorService creator;
 
     @PostMapping("/login")
     public ResponseEntity generateToken(@RequestBody LoginRequest model) {
@@ -35,5 +39,10 @@ public class AuthenticationController {
                 .userId(((SecurityUser) authentication.getPrincipal()).user.getId())
                 .userRole(((SecurityUser) authentication.getPrincipal()).user.getUserRole().label)
                 .build(), HttpStatus.OK);
+    }
+    @ResponseBody
+    @PostMapping("/register")
+    public ResponseEntity create(@RequestBody UserModel model) {
+        return new ResponseEntity(creator.create(model), HttpStatus.OK);
     }
 }

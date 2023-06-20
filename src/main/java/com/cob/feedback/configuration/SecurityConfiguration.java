@@ -50,7 +50,7 @@ public class SecurityConfiguration {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/auth/login").permitAll()
+                        .antMatchers("/authentication/**").permitAll()
                         .antMatchers("/user/find/loggedIn/**").permitAll()
                         .antMatchers("/patient/submit").permitAll()
                         .antMatchers("/clinic/**", "/performance/index/**").hasAuthority(SCOPE + UserRole.ADMIN.label)
