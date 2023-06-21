@@ -52,8 +52,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers("/authentication/**").permitAll()
                         .antMatchers("/user/find/loggedIn/**").permitAll()
-                        .antMatchers("/patient/submit").permitAll()
-                        .antMatchers("/clinic/**", "/performance/index/**").hasAuthority(SCOPE + UserRole.ADMIN.label)
+                        .antMatchers("/feedback/submit").permitAll()
+                        .antMatchers("/clinic/**", "/performance/**").hasAuthority(SCOPE + UserRole.ADMIN.label)
                         .anyRequest().authenticated()
 
                 )
