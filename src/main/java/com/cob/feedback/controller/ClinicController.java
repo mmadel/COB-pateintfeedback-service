@@ -1,5 +1,7 @@
 package com.cob.feedback.controller;
 
+import com.cob.feedback.model.admin.Clinic;
+import com.cob.feedback.service.clinic.ClinicCreatorService;
 import com.cob.feedback.service.clinic.ClinicServiceFinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +14,8 @@ public class ClinicController {
 
     @Autowired
     ClinicServiceFinder finder;
+    @Autowired
+    ClinicCreatorService creator;
     @GetMapping(path = "/find/userId/{userId}")
     @ResponseBody
     public ResponseEntity getUserClinics(@PathVariable Long userId) {
@@ -22,5 +26,11 @@ public class ClinicController {
     @ResponseBody
     public ResponseEntity getAll() {
         return new ResponseEntity(finder.find(), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @PostMapping(path = "/create")
+    public ResponseEntity create(@RequestBody Clinic model) {
+        return new ResponseEntity(creator.create(model), HttpStatus.OK);
     }
 }
