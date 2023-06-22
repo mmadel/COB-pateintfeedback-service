@@ -17,4 +17,10 @@ public class ClinicController {
     public ResponseEntity getUserClinics(@PathVariable Long userId) {
         return new ResponseEntity(finder.findByUserId(userId), HttpStatus.OK);
     }
+
+    @GetMapping(path = "/find")
+    @ResponseBody
+    public ResponseEntity getAll() {
+        return new ResponseEntity(finder.find(), HttpStatus.OK);
+    }
 }
