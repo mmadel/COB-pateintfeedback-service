@@ -51,9 +51,8 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .antMatchers("/authentication/**","/clinic/create").permitAll()
-                        .antMatchers("/user/find/loggedIn/**").permitAll()
                         .antMatchers("/feedback/submit").permitAll()
-                        .antMatchers("/clinic/find/**", "/performance/**").hasAuthority(SCOPE + UserRole.ADMIN.label)
+                        .antMatchers("/clinic/find/**", "/performance/**","/user/**").hasAuthority(SCOPE + UserRole.ADMIN.label)
                         .anyRequest().authenticated()
 
                 )
