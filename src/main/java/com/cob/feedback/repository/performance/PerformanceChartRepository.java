@@ -13,4 +13,6 @@ public interface PerformanceChartRepository extends JpaRepository<FeedbackEntity
             "and fb.created_at<= :endDate " +
             "and fb.clinic_id = :clinicId", nativeQuery = true)
     List get(Long startDate, Long endDate, Long clinicId);
+
+
 }
