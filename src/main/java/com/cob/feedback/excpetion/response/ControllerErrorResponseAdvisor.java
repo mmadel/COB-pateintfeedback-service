@@ -19,7 +19,7 @@ public class ControllerErrorResponseAdvisor {
     public ResponseEntity responseError(FeedbackException ex) {
         String errorMessage = messageSource.getMessage(ex.getCode(), ex.getParameters(), Locale.ENGLISH);
         ControllerErrorResponse controllerErrorResponse = new ControllerErrorResponse(errorMessage, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
-        log.error(controllerErrorResponse.getMessage());
+        log.error(controllerErrorResponse.getError());
         return new ResponseEntity(controllerErrorResponse, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
     }
 }

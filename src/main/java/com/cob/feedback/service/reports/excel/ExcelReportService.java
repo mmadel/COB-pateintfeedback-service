@@ -1,9 +1,13 @@
 package com.cob.feedback.service.reports.excel;
 
+import com.cob.feedback.excpetion.business.FeedbackPerformanceException;
+import com.cob.feedback.excpetion.business.ReportingPerformanceException;
 import com.cob.feedback.model.reports.ExcelReportCriteria;
 import com.cob.feedback.model.reports.ExcelReportResponse;
 import com.cob.feedback.repository.ServiceFeedbackRepositoryBuilder;
 import com.cob.feedback.repository.performance.PerformanceRepository;
+import com.cob.feedback.utils.DateFormatter;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -16,8 +20,9 @@ import java.util.List;
 @Service
 public class ExcelReportService {
     List<Object> searchResponse;
-
+    ExcelReportCriteria criteria;
     public void search(ExcelReportCriteria criteria) {
+        this.criteria = criteria;
         PerformanceRepository performanceRepository = ServiceFeedbackRepositoryBuilder.build(criteria.getServiceName());
         searchResponse = performanceRepository.find(criteria.getStartDate(), criteria.getEndDate(), criteria.getClinicId(), criteria.getFeedbackFilter());
     }
@@ -26,7 +31,13 @@ public class ExcelReportService {
         return new String[]{"Patient Name ", "Feedback", "Optional Feedback ", "Created Date"};
     }
 
-    public List<ExcelReportResponse> getData() {
+    public List<ExcelReportResponse> getData() throws ReportingPerformanceException {
+        if(searchResponse.size() ==0){
+            throw new ReportingPerformanceException(HttpStatus.CONFLICT, ReportingPerformanceException.EXPORT_DATA_IS_EMPTY,
+                    new Object[]{
+                             DateFormatter.formatTimeStampAsString(criteria.getStartDate()),
+                            DateFormatter.formatTimeStampAsString(criteria.getEndDate()), criteria.getClinicId()});
+        }
         List<ExcelReportResponse> excelReportResponses = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
         for (int i = 0; i < searchResponse.size(); i++) {

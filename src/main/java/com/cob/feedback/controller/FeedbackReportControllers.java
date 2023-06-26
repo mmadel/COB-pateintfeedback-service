@@ -1,5 +1,8 @@
 package com.cob.feedback.controller;
 
+import com.cob.feedback.excpetion.business.FeedbackPerformanceException;
+import com.cob.feedback.excpetion.business.ReportingPerformanceException;
+import com.cob.feedback.excpetion.response.ControllerErrorResponseAdvisor;
 import com.cob.feedback.model.reports.ExcelReportCriteria;
 import com.cob.feedback.reports.excel.FeedbackExcelReportGenerator;
 import com.cob.feedback.service.reports.excel.ExcelReportService;
@@ -20,15 +23,17 @@ public class FeedbackReportControllers {
     ExcelReportService excelReportService;
 
     @PostMapping("/excel")
-    public void generateExcel(@RequestBody ExcelReportCriteria reportCriteria, HttpServletResponse response) throws IOException {
+    public void generateExcel(@RequestBody ExcelReportCriteria reportCriteria, HttpServletResponse response) throws IOException, ReportingPerformanceException {
         excelReportService.search(reportCriteria);
         FeedbackExcelReportGenerator feedbackExcelReportGenerator = new FeedbackExcelReportGenerator();
+
         feedbackExcelReportGenerator.export(response, excelReportService.getColumnsNames(),excelReportService.getData());
+
     }
 
-    @PostMapping("/plain")
+   /* @PostMapping("/plain")
     public ResponseEntity generatePlain(@RequestBody ExcelReportCriteria reportCriteria) throws IOException {
         excelReportService.search(reportCriteria);
         return new ResponseEntity(excelReportService.getData(), HttpStatus.OK);
-    }
+    }*/
 }

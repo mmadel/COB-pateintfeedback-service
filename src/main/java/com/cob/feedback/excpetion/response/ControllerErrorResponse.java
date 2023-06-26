@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class ControllerErrorResponse {
-    String message;
+    String error;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm")
     private LocalDateTime timestamp;
     HttpStatus errorCode;
@@ -20,7 +20,7 @@ public class ControllerErrorResponse {
     }
     public ControllerErrorResponse(String message,HttpStatus errorCode){
         this();
-        this.message = message;
+        this.error = message;
         this.errorCode =errorCode;
     }
 }
