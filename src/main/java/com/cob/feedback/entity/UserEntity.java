@@ -42,4 +42,9 @@ public class UserEntity {
     private void beforeSaving() {
         createdAt = new Date().getTime();
     }
+    @PostUpdate
+    private void beforeUpdating() {
+        createdAt = new Date().getTime();
+    }
+
 }
