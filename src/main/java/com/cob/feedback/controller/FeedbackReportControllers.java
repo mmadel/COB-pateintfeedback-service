@@ -27,13 +27,13 @@ public class FeedbackReportControllers {
         excelReportService.search(reportCriteria);
         FeedbackExcelReportGenerator feedbackExcelReportGenerator = new FeedbackExcelReportGenerator();
 
-        feedbackExcelReportGenerator.export(response, excelReportService.getColumnsNames(),excelReportService.getData());
+        feedbackExcelReportGenerator.export(response, excelReportService.getColumnsNames(), excelReportService.getData());
 
     }
 
-   /* @PostMapping("/plain")
-    public ResponseEntity generatePlain(@RequestBody ExcelReportCriteria reportCriteria) throws IOException {
+    @PostMapping("/plain")
+    public ResponseEntity generatePlain(@RequestBody ExcelReportCriteria reportCriteria) throws IOException, ReportingPerformanceException {
         excelReportService.search(reportCriteria);
         return new ResponseEntity(excelReportService.getData(), HttpStatus.OK);
-    }*/
+    }
 }
