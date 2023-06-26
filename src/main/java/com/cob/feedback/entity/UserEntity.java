@@ -46,4 +46,5 @@ public class UserEntity {
     private void beforeUpdating() {
         createdAt = new Date().getTime();
     }
+
 }

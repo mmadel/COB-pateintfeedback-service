@@ -34,4 +34,12 @@ public class UserController {
     public ResponseEntity update(@RequestBody UserModel model) {
         return new ResponseEntity(creator.create(model), HttpStatus.OK);
     }
+
+    @ResponseBody
+    @DeleteMapping("/delete/userId/{userId}")
+    public ResponseEntity delete(@PathVariable long userId) {
+        creator.delete(userId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
