@@ -1,6 +1,9 @@
 package com.cob.feedback.service.clinic;
 
+import com.cob.feedback.entity.ClinicEntity;
+import com.cob.feedback.entity.UserEntity;
 import com.cob.feedback.model.admin.Clinic;
+import com.cob.feedback.model.admin.user.UserModel;
 import com.cob.feedback.repository.ClinicRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +32,11 @@ public class ClinicServiceFinder {
             clinics.add(mapper.map(clinicEntity, Clinic.class));
         });
         return clinics;
+    }
+
+    public  Clinic findById(long clinicId){
+        ClinicEntity clinicEntity = repository.findById(clinicId)
+                .orElseThrow(() -> new IllegalArgumentException("Clinic Id"));
+        return mapper.map(clinicEntity, Clinic.class);
     }
 }

@@ -40,4 +40,9 @@ public class UserCreatorService {
         model.setId(createdUser.getId());
         return model;
     }
+    public void delete (long id){
+        UserEntity tobeDeleted = repository.findById(id).get();
+        tobeDeleted.setClinics(null);
+        repository.delete(tobeDeleted);
+    }
 }
