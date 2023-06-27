@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository  extends JpaRepository<UserEntity,Long> {
     Optional<UserEntity> getByName(String name);
     @Query("Select u from UserEntity u where :clinic member  u.clinics" )
-    UserEntity findByClinic(@Param("clinic") ClinicEntity clinic);
+    List<UserEntity> findByClinic(@Param("clinic") ClinicEntity clinic);
 }
