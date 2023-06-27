@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 
 @Service
 @Transactional
@@ -37,8 +38,8 @@ public class ClinicCreatorService {
 
     public void delete(long id) throws ClinicException {
         ClinicEntity tobeDeleted = repository.findById(id).get();
-        UserEntity u = userRepository.findByClinic(tobeDeleted);
-        if(u != null)
+        List<UserEntity> users = userRepository.findByClinic(tobeDeleted);
+        if(users != null || users.size() > 0)
             throw new ClinicException(HttpStatus.INTERNAL_SERVER_ERROR, ClinicException.CLINIC_ASSIGN_TO_USER,
                     new Object[]{id});
         repository.delete(tobeDeleted);
