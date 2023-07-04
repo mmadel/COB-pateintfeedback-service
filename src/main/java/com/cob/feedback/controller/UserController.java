@@ -1,5 +1,6 @@
 package com.cob.feedback.controller;
 
+import com.cob.feedback.excpetion.business.UserException;
 import com.cob.feedback.model.admin.user.UserModel;
 import com.cob.feedback.service.user.UserCreatorService;
 import com.cob.feedback.service.user.UserFinderService;
@@ -31,8 +32,8 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/update")
-    public ResponseEntity update(@RequestBody UserModel model) {
-        return new ResponseEntity(creator.create(model), HttpStatus.OK);
+    public ResponseEntity update(@RequestBody UserModel model) throws UserException {
+        return new ResponseEntity(creator.update(model), HttpStatus.OK);
     }
 
     @ResponseBody

@@ -39,7 +39,7 @@ public class ClinicCreatorService {
     public void delete(long id) throws ClinicException {
         ClinicEntity tobeDeleted = repository.findById(id).get();
         List<UserEntity> users = userRepository.findByClinic(tobeDeleted);
-        if(users != null || !users.isEmpty())
+        if(!users.isEmpty())
             throw new ClinicException(HttpStatus.INTERNAL_SERVER_ERROR, ClinicException.CLINIC_ASSIGN_TO_USER,
                     new Object[]{id});
         repository.delete(tobeDeleted);
