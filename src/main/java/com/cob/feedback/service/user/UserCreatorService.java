@@ -61,7 +61,7 @@ public class UserCreatorService {
         if (entity.isPresent() && !model.getName().equals(entity.get().getName()))
             throw new UserException(HttpStatus.CONFLICT, UserException.USER_IS_EXISTS,
                     new Object[]{model.getName()});
-        if (toBeUpdate.getPassword().equals(model.getPassword()))
+        if (entity.isPresent() && entity.get().getPassword().equals(model.getPassword()))
             toBeUpdate.setPassword(model.getPassword());
         else
             toBeUpdate.setPassword("{bcrypt}" + encoder.encode(model.getPassword()));
