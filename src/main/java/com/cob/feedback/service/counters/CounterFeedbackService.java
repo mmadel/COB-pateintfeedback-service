@@ -36,7 +36,7 @@ public class CounterFeedbackService {
     }
 
     private ClinicalCountersContainer getClinicalCounters() {
-        int[] counters = FeedbackCounter.count(startDate, endDate, clinicId, ServiceName.HOSPITALITY);
+        int[] counters = FeedbackCounter.count(startDate, endDate, clinicId, ServiceName.CLINICAL);
         return ClinicalCountersContainer.builder()
                 .veryPositive(counters[0])
                 .positive(counters[1])
