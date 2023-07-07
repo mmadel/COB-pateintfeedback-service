@@ -3,7 +3,7 @@ package com.cob.feedback.service.chart;
 import com.cob.feedback.formula.AverageFormula;
 import com.cob.feedback.formula.HappyIndexFormula;
 import com.cob.feedback.formula.NPSFormula;
-import com.cob.feedback.model.performance.chart.ChartDataContainer;
+import com.cob.feedback.model.chart.ChartDataContainer;
 
 import java.util.Arrays;
 import java.util.HashMap;

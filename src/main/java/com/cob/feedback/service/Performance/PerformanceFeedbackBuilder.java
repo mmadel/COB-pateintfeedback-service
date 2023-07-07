@@ -1,17 +1,15 @@
-package com.cob.feedback.service;
+package com.cob.feedback.service.Performance;
 
 import com.cob.feedback.enums.ServiceName;
 import com.cob.feedback.excpetion.business.FeedbackPerformanceException;
 import com.cob.feedback.model.performance.ClinicalContainer;
 import com.cob.feedback.model.performance.HospitalityContainer;
 import com.cob.feedback.model.performance.PerformanceIndexContainer;
-import com.cob.feedback.utils.DateFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FeedbackRetrievalService {
+public class PerformanceFeedbackBuilder {
     @Autowired
     PerformanceFeedbackService performanceFeedbackService;
     long startDate;

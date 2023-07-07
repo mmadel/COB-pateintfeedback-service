@@ -2,8 +2,8 @@ package com.cob.feedback.service.chart;
 
 import com.cob.feedback.enums.ChartTimeUnit;
 import com.cob.feedback.enums.ServiceName;
-import com.cob.feedback.model.performance.chart.ChartDataContainer;
-import com.cob.feedback.model.performance.chart.ChartResponse;
+import com.cob.feedback.model.chart.ChartDataContainer;
+import com.cob.feedback.model.chart.ChartResponse;
 import com.cob.feedback.repository.performance.PerformanceChartRepository;
 import com.cob.feedback.utils.TimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class PerformanceChartService {
 
     public ChartTimeUnit chartTimeUnit;
 
-    public ChartResponse getChartData(Long startDate, Long endDate, Long clinicId) {
+    public ChartResponse retrieve(Long startDate, Long endDate, Long clinicId) {
         ChartDataContainer chartDataContainer = new ChartDataContainer(chartTimeUnit);
         chartDataContainer.setPlainData(performanceChartRepository.get(startDate, endDate, clinicId));
         FeedbackGrouping.group(chartDataContainer);
