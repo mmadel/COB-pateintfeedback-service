@@ -1,4 +1,4 @@
-package com.cob.feedback.model.performance.chart;
+package com.cob.feedback.model.chart;
 
 import com.cob.feedback.enums.ChartTimeUnit;
 import lombok.Getter;
