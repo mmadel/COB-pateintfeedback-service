@@ -12,5 +12,9 @@ public class HospitalityCounterContainer {
     private long positive;
     private long negative;
     private long veryNegative;
+    private double veryPositivePercentage;
+    private double positivePercentage;
+    private double negativePercentage;
+    private double veryNegativePercentage;
 
 }
