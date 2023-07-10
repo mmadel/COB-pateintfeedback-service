@@ -48,7 +48,7 @@ public class ExcelReportService {
                             DateFormatter.formatTimeStampAsString(criteria.getEndDate()), criteria.getClinicId()});
         }
         List<ExcelReportResponse> excelReportResponses = new ArrayList<>();
-        DateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        DateFormat formatter = new SimpleDateFormat("MMM dd yyyy hh:mm");
         for (Object o : searchResponse) {
             Object[] plainValues = (Object[]) o;
             excelReportResponses.add(ExcelReportResponse.builder()
@@ -61,7 +61,7 @@ public class ExcelReportService {
         return excelReportResponses;
     }
 
-    public Map<ServiceName, List<ExcelReportResponse>> getMultipleData() throws ReportingPerformanceException {
+    public Map<ServiceName, List<ExcelReportResponse>>  getMultipleData() throws ReportingPerformanceException {
         Map<ServiceName, List<ExcelReportResponse>> result = new HashMap<>();
         for (ServiceName serviceName : serviceData.keySet()) {
             searchResponse = serviceData.get(serviceName);
