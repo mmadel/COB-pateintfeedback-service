@@ -1,11 +1,9 @@
 package com.cob.feedback.service.reports.excel;
 
-import com.cob.feedback.excpetion.business.FeedbackPerformanceException;
 import com.cob.feedback.excpetion.business.ReportingPerformanceException;
 import com.cob.feedback.model.reports.ExcelReportCriteria;
 import com.cob.feedback.model.reports.ExcelReportResponse;
 import com.cob.feedback.repository.ServiceFeedbackRepositoryBuilder;
-import com.cob.feedback.repository.performance.PerformanceRepository;
 import com.cob.feedback.utils.DateFormatter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,10 @@ public class ExcelReportService {
     ExcelReportCriteria criteria;
     public void search(ExcelReportCriteria criteria) {
         this.criteria = criteria;
-        PerformanceRepository performanceRepository = ServiceFeedbackRepositoryBuilder.build(criteria.getServiceName());
-        searchResponse = performanceRepository.find(criteria.getStartDate(), criteria.getEndDate(), criteria.getClinicId(), criteria.getFeedbackFilter());
+        ServiceFeedbackRepositoryBuilder.build(criteria.getServiceName())
+                .forEach(performanceRepository -> performanceRepository.find(criteria.getStartDate(), criteria.getEndDate(), criteria.getClinicId(), criteria.getFeedbackFilter()));
+
+        //searchResponse = performanceRepository.find(criteria.getStartDate(), criteria.getEndDate(), criteria.getClinicId(), criteria.getFeedbackFilter());
     }
 
     public String[] getColumnsNames() {
@@ -40,8 +40,8 @@ public class ExcelReportService {
         }
         List<ExcelReportResponse> excelReportResponses = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
-        for (int i = 0; i < searchResponse.size(); i++) {
-            Object[] plainValues = (Object[]) searchResponse.get(i);
+        for (Object o : searchResponse) {
+            Object[] plainValues = (Object[]) o;
             excelReportResponses.add(ExcelReportResponse.builder()
                     .patientName((String) plainValues[0])
                     .feedback((String) plainValues[1])

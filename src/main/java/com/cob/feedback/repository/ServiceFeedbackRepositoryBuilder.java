@@ -6,9 +6,12 @@ import com.cob.feedback.repository.performance.ClinicalFeedbackPerformanceReposi
 import com.cob.feedback.repository.performance.HospitalityFeedbackPerformanceRepository;
 import com.cob.feedback.repository.performance.PerformanceRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ServiceFeedbackRepositoryBuilder {
 
-    public static PerformanceRepository build(ServiceName serviceName){
+    public static PerformanceRepository build(ServiceName serviceName) {
         PerformanceRepository performanceRepository = null;
         switch (serviceName) {
             case HOSPITALITY:
@@ -19,5 +22,16 @@ public class ServiceFeedbackRepositoryBuilder {
                 break;
         }
         return performanceRepository;
+    }
+
+    public static List<PerformanceRepository> build(List<ServiceName> serviceName) {
+        List<PerformanceRepository> repositories = new ArrayList<>();
+        serviceName.forEach(service -> {
+            if (service.equals(ServiceName.HOSPITALITY))
+                repositories.add(build(ServiceName.HOSPITALITY));
+            if (service.equals(ServiceName.CLINICAL))
+                repositories.add(build(ServiceName.CLINICAL));
+        });
+        return repositories;
     }
 }
