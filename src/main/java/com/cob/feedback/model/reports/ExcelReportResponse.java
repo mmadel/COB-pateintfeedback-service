@@ -13,4 +13,5 @@ public class ExcelReportResponse {
     String optionalFeedback;
     String createdAt;
 
+    String clinicName;
 }

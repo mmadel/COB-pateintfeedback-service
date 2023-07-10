@@ -7,7 +7,9 @@ import com.cob.feedback.model.reports.ExcelReportResponse;
 import com.cob.feedback.repository.ServiceFeedbackRepositoryBuilder;
 import com.cob.feedback.repository.performance.ClinicalFeedbackPerformanceRepository;
 import com.cob.feedback.repository.performance.HospitalityFeedbackPerformanceRepository;
+import com.cob.feedback.service.clinic.ClinicServiceFinder;
 import com.cob.feedback.utils.DateFormatter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ public class ExcelReportService {
     List<Object> searchResponse;
     Map<ServiceName, List<Object>> serviceData;
     ExcelReportCriteria criteria;
+
+    @Autowired
+    ClinicServiceFinder clinicServiceFinder;
 
     public void search(ExcelReportCriteria criteria) {
         this.criteria = criteria;
@@ -37,7 +42,7 @@ public class ExcelReportService {
     }
 
     public String[] getColumnsNames() {
-        return new String[]{"Patient Name ", "Feedback", "Optional Feedback ", "Created Date"};
+        return new String[]{"Patient Name ", "Feedback", "Optional Feedback ", "Location", "Created Date"};
     }
 
     public List<ExcelReportResponse> getSingleServiceData() throws ReportingPerformanceException {
@@ -55,13 +60,14 @@ public class ExcelReportService {
                     .patientName((String) plainValues[0])
                     .feedback((String) plainValues[1])
                     .optionalFeedback((String) plainValues[2])
+                    .clinicName(clinicServiceFinder.findById(criteria.getClinicId()).getName())
                     .createdAt(formatter.format(new Date(((BigInteger) plainValues[3]).longValue())))
                     .build());
         }
         return excelReportResponses;
     }
 
-    public Map<ServiceName, List<ExcelReportResponse>>  getMultipleData() throws ReportingPerformanceException {
+    public Map<ServiceName, List<ExcelReportResponse>> getMultipleData() throws ReportingPerformanceException {
         Map<ServiceName, List<ExcelReportResponse>> result = new HashMap<>();
         for (ServiceName serviceName : serviceData.keySet()) {
             searchResponse = serviceData.get(serviceName);

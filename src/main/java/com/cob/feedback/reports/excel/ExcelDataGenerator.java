@@ -33,6 +33,7 @@ public class ExcelDataGenerator {
             createCell(row, columnCount++, response.getPatientName(), style);
             createCell(row, columnCount++, response.getFeedback().replaceAll("^\"|\"$", ""), style);
             createCell(row, columnCount++, response.getOptionalFeedback(), style);
+            createCell(row, columnCount++, response.getClinicName(), style);
             createCell(row, columnCount, response.getCreatedAt(), style);
         }
         sheet = null;
