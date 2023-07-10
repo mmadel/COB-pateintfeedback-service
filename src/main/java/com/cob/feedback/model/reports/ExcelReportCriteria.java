@@ -12,6 +12,6 @@ public class ExcelReportCriteria {
     long startDate;
     long endDate;
     long clinicId;
-    ServiceName serviceName;
+    List<ServiceName> serviceName;
     List<String> feedbackFilter;
 }
