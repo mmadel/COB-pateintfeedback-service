@@ -33,14 +33,14 @@ public class ExcelDataGenerator {
             createCell(row, columnCount++, response.getPatientName(), style);
             createCell(row, columnCount++, response.getFeedback().replaceAll("^\"|\"$", ""), style);
             createCell(row, columnCount++, response.getOptionalFeedback(), style);
-            createCell(row, columnCount++, response.getCreatedAt(), style);
+            createCell(row, columnCount, response.getCreatedAt(), style);
         }
         sheet = null;
     }
 
-    public static void createHeaderLine(XSSFWorkbook workbook, String[] columns) {
+    public static void createHeaderLine(XSSFWorkbook workbook, String[] columns , String sheetName) {
         if (sheet == null)
-            sheet = workbook.createSheet("Patients-Feedback");
+            sheet = workbook.createSheet(sheetName);
         Row row = sheet.createRow(0);
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
