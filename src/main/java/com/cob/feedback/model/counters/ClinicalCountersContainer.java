@@ -12,7 +12,7 @@ public class ClinicalCountersContainer {
     private long positive;
     private long negative;
     private long veryNegative;
-
+    private long total;
     private double veryPositivePercentage;
     private double positivePercentage;
     private double negativePercentage;

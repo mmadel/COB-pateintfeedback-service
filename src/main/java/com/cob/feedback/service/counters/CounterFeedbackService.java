@@ -31,6 +31,8 @@ public class CounterFeedbackService {
                 .positive(dbCounterContainer.getCounters()[1])
                 .negative(dbCounterContainer.getCounters()[2])
                 .veryNegative(dbCounterContainer.getCounters()[3])
+                .total(dbCounterContainer.getCounters()[0] + dbCounterContainer.getCounters()[1] +
+                        dbCounterContainer.getCounters()[2] + dbCounterContainer.getCounters()[3])
                 .veryPositivePercentage(dbCounterContainer.getPercentages()[0])
                 .positivePercentage(dbCounterContainer.getPercentages()[1])
                 .negativePercentage(dbCounterContainer.getPercentages()[2])
@@ -46,6 +48,8 @@ public class CounterFeedbackService {
                 .veryPositive(dbCounterContainer.getCounters()[0])
                 .positive(dbCounterContainer.getCounters()[1])
                 .negative(dbCounterContainer.getCounters()[2])
+                .total(dbCounterContainer.getCounters()[0] + dbCounterContainer.getCounters()[1] +
+                        dbCounterContainer.getCounters()[2] + dbCounterContainer.getCounters()[3])
                 .veryNegative(dbCounterContainer.getCounters()[3])
                 .veryPositivePercentage(dbCounterContainer.getPercentages()[0])
                 .positivePercentage(dbCounterContainer.getPercentages()[1])
