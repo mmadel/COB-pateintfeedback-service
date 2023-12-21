@@ -14,4 +14,5 @@ public class ExcelReportCriteria {
     long clinicId;
     List<ServiceName> serviceName;
     List<String> feedbackFilter;
+    String timeZone;
 }

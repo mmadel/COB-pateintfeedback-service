@@ -80,7 +80,7 @@ public class ExcelReportService {
     private String createDate(Long dateInMillisecond){
         Date date = new Date(dateInMillisecond);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-        sdf.setTimeZone(TimeZone.getTimeZone(reportingTimeZone));
+        sdf.setTimeZone(TimeZone.getTimeZone(criteria.getTimeZone()));
         return sdf.format(date);
 
     }
