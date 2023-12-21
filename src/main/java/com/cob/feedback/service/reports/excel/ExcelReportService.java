@@ -10,6 +10,7 @@ import com.cob.feedback.repository.performance.HospitalityFeedbackPerformanceRep
 import com.cob.feedback.service.clinic.ClinicServiceFinder;
 import com.cob.feedback.utils.DateFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,8 @@ public class ExcelReportService {
 
     @Autowired
     ClinicServiceFinder clinicServiceFinder;
+    @Value("${reporting_time_zone}")
+    private String reportingTimeZone;
 
     public void search(ExcelReportCriteria criteria) {
         this.criteria = criteria;
@@ -53,7 +56,6 @@ public class ExcelReportService {
                             DateFormatter.formatTimeStampAsString(criteria.getEndDate()), criteria.getClinicId()});
         }
         List<ExcelReportResponse> excelReportResponses = new ArrayList<>();
-        DateFormat formatter = new SimpleDateFormat("MMM dd yyyy hh:mm");
         for (Object o : searchResponse) {
             Object[] plainValues = (Object[]) o;
             excelReportResponses.add(ExcelReportResponse.builder()
@@ -61,7 +63,7 @@ public class ExcelReportService {
                     .feedback((String) plainValues[1])
                     .optionalFeedback((String) plainValues[2])
                     .clinicName(clinicServiceFinder.findById(criteria.getClinicId()).getName())
-                    .createdAt(formatter.format(new Date(((BigInteger) plainValues[3]).longValue())))
+                    .createdAt(createDate(((BigInteger) plainValues[3]).longValue()))
                     .build());
         }
         return excelReportResponses;
@@ -74,5 +76,12 @@ public class ExcelReportService {
             result.put(serviceName, getSingleServiceData());
         }
         return result;
+    }
+    private String createDate(Long dateInMillisecond){
+        Date date = new Date(dateInMillisecond);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+        sdf.setTimeZone(TimeZone.getTimeZone(reportingTimeZone));
+        return sdf.format(date);
+
     }
 }
