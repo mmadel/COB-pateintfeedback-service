@@ -12,11 +12,14 @@ import java.util.TimeZone;
 
 public class Main {
     public static void main(String[] args) {
-        Date date = new Date(1703105809981L);
+        //America/New_York
+        //Africa/Cairo
+        Date date = new Date(1701381600000L);
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+        System.out.println(sdf.format(date));
         sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        String newYorkTime = sdf.format(date);
-        System.out.println(newYorkTime);
+        System.out.println(sdf.format(date));
     }
 
 }
