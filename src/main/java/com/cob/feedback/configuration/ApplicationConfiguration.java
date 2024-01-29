@@ -16,7 +16,7 @@ public class ApplicationConfiguration {
     public ResourceBundleMessageSource messageSource() {
 
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasenames("message/exception");
+        source.setBasenames("exception");
         source.setDefaultEncoding("UTF-8");
         source.setAlwaysUseMessageFormat(true);
 

@@ -1,7 +1,9 @@
 package com.cob.feedback.excpetion;
 
 import com.cob.feedback.excpetion.business.ClinicException;
+import com.cob.feedback.excpetion.business.FeedbackException;
 import com.cob.feedback.excpetion.business.ReportingPerformanceException;
+import com.cob.feedback.excpetion.business.UserException;
 import com.cob.feedback.excpetion.response.ControllerErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.spi.ErrorMessage;
@@ -21,19 +23,15 @@ import java.util.Locale;
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler  {
     @Autowired
     ResourceBundleMessageSource messageSource;
-    @ExceptionHandler(value = {ReportingPerformanceException.class})
-    public ResponseEntity  handleReportingPerformanceException(ReportingPerformanceException ex, WebRequest request) {
+    @ExceptionHandler(value = {FeedbackException.class})
+    public ResponseEntity  handleFeedbackExceptionException(FeedbackException ex, WebRequest request) {
         String errorMessage = messageSource.getMessage(ex.getCode(), ex.getParameters(), Locale.ENGLISH);
                 ControllerErrorResponse controllerErrorResponse = new ControllerErrorResponse(errorMessage, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
         log.error(controllerErrorResponse.getError());
         return new ResponseEntity(controllerErrorResponse, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
     }
 
-    @ExceptionHandler(value = {ClinicException.class})
-    public ResponseEntity  handleClinicException(ClinicException ex, WebRequest request) {
-        String errorMessage = messageSource.getMessage(ex.getCode(), ex.getParameters(), Locale.ENGLISH);
-        ControllerErrorResponse controllerErrorResponse = new ControllerErrorResponse(errorMessage, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
-        log.error(controllerErrorResponse.getError());
-        return new ResponseEntity(controllerErrorResponse, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
-    }
+
+
+
 }

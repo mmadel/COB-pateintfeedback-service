@@ -1,18 +1,17 @@
 package com.cob.feedback.controller;
 
-import com.cob.feedback.excpetion.business.FeedbackPerformanceException;
 import com.cob.feedback.excpetion.business.ReportingPerformanceException;
-import com.cob.feedback.excpetion.response.ControllerErrorResponseAdvisor;
 import com.cob.feedback.model.reports.ExcelReportCriteria;
-import com.cob.feedback.reports.excel.FeedbackExcelReportGenerator;
 import com.cob.feedback.service.reports.excel.ExcelReportService;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @CrossOrigin
 @RestController
@@ -24,16 +23,20 @@ public class FeedbackReportControllers {
 
     @PostMapping("/excel")
     public void generateExcel(@RequestBody ExcelReportCriteria reportCriteria, HttpServletResponse response) throws IOException, ReportingPerformanceException {
-        excelReportService.search(reportCriteria);
-        FeedbackExcelReportGenerator feedbackExcelReportGenerator = new FeedbackExcelReportGenerator();
-
-        feedbackExcelReportGenerator.export(response, excelReportService.getColumnsNames(), excelReportService.getData());
-
+        XSSFWorkbook workbook = excelReportService.export(reportCriteria);
+        constructResponse(response);
+        workbook.write(response.getOutputStream());
+        workbook.close();
+        response.getOutputStream().close();
     }
 
-    @PostMapping("/plain")
-    public ResponseEntity generatePlain(@RequestBody ExcelReportCriteria reportCriteria) throws IOException, ReportingPerformanceException {
-        excelReportService.search(reportCriteria);
-        return new ResponseEntity(excelReportService.getData(), HttpStatus.OK);
+    private void constructResponse(HttpServletResponse response) {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=report_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
     }
 }

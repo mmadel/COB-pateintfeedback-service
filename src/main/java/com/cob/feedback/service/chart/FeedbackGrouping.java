@@ -1,8 +1,8 @@
 package com.cob.feedback.service.chart;
 
 import com.cob.feedback.model.FeedbackQuestion;
-import com.cob.feedback.model.performance.chart.ChartDataContainer;
-import com.cob.feedback.model.performance.chart.ChartResult;
+import com.cob.feedback.model.chart.ChartDataContainer;
+import com.cob.feedback.model.chart.ChartResult;
 import com.google.gson.Gson;
 
 import java.math.BigInteger;

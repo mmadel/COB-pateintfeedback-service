@@ -1,5 +1,6 @@
 package com.cob.feedback.controller;
 
+import com.cob.feedback.excpetion.business.UserException;
 import com.cob.feedback.model.admin.security.LoginRequest;
 import com.cob.feedback.model.admin.security.LoginResponse;
 import com.cob.feedback.model.admin.user.UserModel;
@@ -42,7 +43,7 @@ public class AuthenticationController {
     }
     @ResponseBody
     @PostMapping("/register")
-    public ResponseEntity create(@RequestBody UserModel model) {
+    public ResponseEntity create(@RequestBody UserModel model) throws UserException {
         return new ResponseEntity(creator.create(model), HttpStatus.OK);
     }
 }

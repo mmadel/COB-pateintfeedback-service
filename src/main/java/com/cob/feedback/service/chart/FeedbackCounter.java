@@ -1,7 +1,7 @@
 package com.cob.feedback.service.chart;
 
-import com.cob.feedback.model.performance.chart.ChartDataContainer;
-import com.cob.feedback.model.performance.chart.ChartResult;
+import com.cob.feedback.model.chart.ChartDataContainer;
+import com.cob.feedback.model.chart.ChartResult;
 
 import java.util.HashMap;
 import java.util.List;
