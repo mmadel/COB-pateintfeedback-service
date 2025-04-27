@@ -15,10 +15,12 @@ public class PerformanceChartService {
     PerformanceChartRepository performanceChartRepository;
 
     public ChartTimeUnit chartTimeUnit;
+    public String timeZone;
 
     public ChartResponse retrieve(Long startDate, Long endDate, Long clinicId) {
         ChartDataContainer chartDataContainer = new ChartDataContainer(chartTimeUnit);
         chartDataContainer.setPlainData(performanceChartRepository.get(startDate, endDate, clinicId));
+        chartDataContainer.setTimeZone(timeZone);
         FeedbackGrouping.group(chartDataContainer);
         FeedbackCounter.count(chartDataContainer);
         FeedbackFormulaCalculator.calculate(chartDataContainer);
@@ -32,9 +34,9 @@ public class PerformanceChartService {
     private Double[][] getServicePerformanceIndex(ChartDataContainer chartDataContainer, ServiceName serviceName) {
 
         Double[][] servicePerformanceIndex = new Double[3][];
-        Double[] happyIndex = TimeUtils.getTimeScale(chartTimeUnit);
-        Double[] nps = TimeUtils.getTimeScale(chartTimeUnit);
-        Double[] average = TimeUtils.getTimeScale(chartTimeUnit);
+        Double[] happyIndex = TimeUtils.getTimeScale(chartTimeUnit,timeZone);
+        Double[] nps = TimeUtils.getTimeScale(chartTimeUnit,timeZone);
+        Double[] average = TimeUtils.getTimeScale(chartTimeUnit,timeZone);
 
         chartDataContainer.getCalculatedData().entrySet()
                 .forEach(resultSet -> {

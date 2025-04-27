@@ -20,5 +20,6 @@ public class ChartDataContainer {
 
     Map<Long, double[][]> calculatedData;
     ChartTimeUnit chartTimeUnit;
+    String timeZone;
 
 }
