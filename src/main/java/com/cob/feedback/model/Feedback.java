@@ -11,8 +11,8 @@ public class Feedback {
 
     private FeedbackQuestion feedbackQuestions;
     private String patientName;
-
+    private String firstName;
+    private String lastName;
     private String optionalFeedback;
-
     private long createdAt;
 }
