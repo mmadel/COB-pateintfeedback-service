@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class FeedbackCounter {
     public static void count(ChartDataContainer chartDataContainer) {
-        Map<Long, long[][]> countedData = new HashMap<>();
+        Map<Long, int[][]> countedData = new HashMap<>();
         chartDataContainer.getGroupedData().entrySet().stream()
                 .forEach(entry -> {
                     countedData.put(entry.getKey(), sumServiceFeedback(entry.getValue()));
@@ -17,8 +17,8 @@ public class FeedbackCounter {
         chartDataContainer.setCountedData(countedData);
     }
 
-    private static long[][] sumServiceFeedback(List<ChartResult> data) {
-        long[][] feedbackCounters = new long[2][4];
+    private static int[][] sumServiceFeedback(List<ChartResult> data) {
+        int[][] feedbackCounters = new int[2][4];
         data.forEach(chartResult -> {
             switch (chartResult.getFeedbackValue().getHospitalityFeedback()) {
                 case VGood:
@@ -30,9 +30,9 @@ public class FeedbackCounter {
                 case Sad:
                     feedbackCounters[0][2]++;
                     break;
-                case VSad:
-                    feedbackCounters[0][3]++;
-                    break;
+//                case VSad:
+//                    feedbackCounters[0][3]++;
+//                    break;
             }
             switch (chartResult.getFeedbackValue().getClinicalFeedback()) {
                 case VGood:
@@ -44,9 +44,9 @@ public class FeedbackCounter {
                 case Sad:
                     feedbackCounters[1][2]++;
                     break;
-                case VSad:
-                    feedbackCounters[1][3]++;
-                    break;
+//                case VSad:
+//                    feedbackCounters[1][3]++;
+//                    break;
             }
 
         });

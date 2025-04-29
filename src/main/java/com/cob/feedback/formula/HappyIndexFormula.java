@@ -1,16 +1,30 @@
 package com.cob.feedback.formula;
 
-import static com.cob.feedback.formula.FormulaConstants.DEFAULT_NEGATIVE_FRACTION;
-import static com.cob.feedback.formula.FormulaConstants.DEFAULT_POSITIVE_FRACTION;
-import static com.cob.feedback.formula.FormulaUtils.calculateStep;
-
 public class HappyIndexFormula {
-    public static long calculate(int stepValue, double vPositiveValue, double positiveValue,
-                                 double negativeValue, double vNegativeValue) {
-        double numerator = (vPositiveValue * stepValue)
-                + calculateStep(stepValue, DEFAULT_POSITIVE_FRACTION) * positiveValue
-                + calculateStep(stepValue, DEFAULT_NEGATIVE_FRACTION) * negativeValue;
-        double denominator = vPositiveValue + positiveValue + negativeValue + vNegativeValue;
-        return Math.round(numerator / denominator);
+
+    public static double calculate(int step, int vPositiveValue, int positiveValue,
+                                   int negativeValue) {
+        /*
+            Formula to calculate the happy index
+            HappinessIndex = ((AvgScore -Min) / (Max - Min)) /100
+            Max is represents the wight of max scale : VGood : 3
+            Min is represents the wight of min scale : VBad : 1
+         */
+        int totalResponses = vPositiveValue + positiveValue + negativeValue;
+        if (totalResponses == 0) return 0.0;
+        // Assign weights
+        int vGoodWeight = 3;
+        int goodWeight = 2;
+        int badWeight = 1;
+        // Calculate weighted average
+        double averageScore = (
+                (vPositiveValue * vGoodWeight) +
+                        (positiveValue * goodWeight) +
+                        (negativeValue * badWeight)
+        ) / (double) totalResponses;
+
+        // Normalize to 0–100
+        double normalizedScore = ((averageScore - 1) / (3 - 1)) * 100;
+        return Math.round(normalizedScore * 100.0) / 100.0;
     }
 }

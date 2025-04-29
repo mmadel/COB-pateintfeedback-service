@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Builder
 public class HospitalityContainer {
-    private long happyIndex;
+    private double happyIndex;
     private long nps;
     private double average;
 
