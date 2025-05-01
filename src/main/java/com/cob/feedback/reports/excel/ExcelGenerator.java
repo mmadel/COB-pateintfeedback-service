@@ -71,6 +71,6 @@ public class ExcelGenerator {
     }
 
     private void setColumnsNames() {
-        columns = new String[]{"Patient Name ", "Feedback", "Optional Feedback ", "Location", "Created Date"};
+        columns = new String[]{"Patient Name ", "Feedback", "Comment ", "Location", "Created Date"};
     }
 }
