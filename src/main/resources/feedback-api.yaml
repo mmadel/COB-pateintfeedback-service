@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Feedback Reports API
+  version: 1.0.0
+  description: |
+    The Feedback Reports API provides secure access to generate Excel reports
+    based on a given date range. Authentication is required using JWT.
+
+servers:
+  - url: http://localhost:8080/feedback/api
+    description: Local backend server
+
+paths:
+  /authentication/login:
+    post:
+      summary: Authenticate user and return JWT
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userName
+                - password
+              properties:
+                userName:
+                  type: string
+                  example: ddjd
+                password:
+                  type: string
+                  example: idid
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT token string
+                  expiresAt:
+                    type: string
+                    format: date-time
+                    description: Token expiration time in UTC
+                  userName:
+                    type: string
+                    example: ddjd
+        '401':
+          description: Invalid username or password
+
+  /reports/test:
+    get:
+      summary: Generate Excel report for given date range
+      tags:
+        - Reports
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: startDate
+          required: true
+          schema:
+            type: string
+            example: 09/01/2025
+          description: Start date (format M/d/yyyy)
+        - in: query
+          name: endDate
+          required: true
+          schema:
+            type: string
+            example: 09/30/2025
+          description: End date (format M/d/yyyy)
+      responses:
+        '200':
+          description: Excel file with requested report
+          content:
+            application/vnd.ms-excel:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Invalid date format or invalid date range
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: string
+                    format: date-time
+                  status:
+                    type: integer
+                    example: 400
+                  error:
+                    type: string
+                    example: Invalid Date Format
+                  message:
+                    type: string
+                    example: "Invalid date format: 99/99/2025. Expected format is M/d/yyyy (e.g., 9/1/2025)."
+                  path:
+                    type: string
+                    example: /feedback/api/reports/test
+        '401':
+          description: Unauthorized (missing or invalid JWT)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timestamp:
+                    type: string
+                    format: date-time
+                  status:
+                    type: integer
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: Invalid or expired JWT token
+                  path:
+                    type: string
+                    example: /feedback/api/reports/test
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
