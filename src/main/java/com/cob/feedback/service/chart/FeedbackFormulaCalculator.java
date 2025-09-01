@@ -15,8 +15,8 @@ public class FeedbackFormulaCalculator {
         Map<Long, double[][]> formulatedData = new HashMap<>();
         chartDataContainer.getCountedData().entrySet().stream().forEach(entry -> {
             double[][] result = new double[2][3];
-            long[] hospitalityCounter = entry.getValue()[0];
-            long[] clinicalCounter = entry.getValue()[1];
+            int[] hospitalityCounter = entry.getValue()[0];
+            int[] clinicalCounter = entry.getValue()[1];
             result[0] = calculatePerformanceIndex(hospitalityCounter);
             result[1] = calculatePerformanceIndex(clinicalCounter);
             formulatedData.put(entry.getKey(), result);
@@ -24,11 +24,11 @@ public class FeedbackFormulaCalculator {
         chartDataContainer.setCalculatedData(formulatedData);
     }
 
-    private static double[] calculatePerformanceIndex(long[] counters) {
+    private static double[] calculatePerformanceIndex(int[] counters) {
         double[] servicePerformanceIndex = new double[3];
-        servicePerformanceIndex[0] = HappyIndexFormula.calculate(100, counters[0], counters[1], counters[1], counters[3]);
-        servicePerformanceIndex[1] = NPSFormula.calculate(Arrays.stream(counters).sum(), counters[0], counters[2], counters[3]);
-        servicePerformanceIndex[2] = AverageFormula.calculate(counters[0], counters[1], counters[2], counters[3]);
+        servicePerformanceIndex[0] = HappyIndexFormula.calculate(100, counters[0], counters[1], counters[1]);
+        servicePerformanceIndex[1] = NPSFormula.calculate(Arrays.stream(counters).sum(), counters[0], counters[2]);
+        servicePerformanceIndex[2] = AverageFormula.calculate(counters[0], counters[1], counters[2]);
         return servicePerformanceIndex;
     }
 }

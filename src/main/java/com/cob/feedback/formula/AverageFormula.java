@@ -10,12 +10,11 @@ public class AverageFormula {
     private static final DecimalFormat df = new DecimalFormat("0.0");
 
     public static double calculate(double vPositiveValue, double positiveValue,
-                                   double negativeValue, double vNegativeValue) {
+                                   double negativeValue) {
         double numerator = vPositiveValue * FEEDBACK_WIGHT[0]
                 + positiveValue * FEEDBACK_WIGHT[1]
-                + negativeValue * FEEDBACK_WIGHT[2]
-                + vNegativeValue * FEEDBACK_WIGHT[3];
-        double denominator = vPositiveValue + positiveValue + negativeValue + vNegativeValue;
+                + negativeValue * FEEDBACK_WIGHT[2];
+        double denominator = vPositiveValue + positiveValue + negativeValue ;
         Double result = numerator / denominator;
         BigDecimal averageResult = new BigDecimal(result.isNaN() ? 0.0 : result).setScale(2, RoundingMode.UP);
         return averageResult.doubleValue();

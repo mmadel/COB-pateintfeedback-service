@@ -12,14 +12,13 @@ import java.util.TimeZone;
 
 public class Main {
     public static void main(String[] args) {
-        //America/New_York
-        //Africa/Cairo
-        Date date = new Date(1701381600000L);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-        System.out.println(sdf.format(date));
-        sdf.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        System.out.println(sdf.format(date));
+        long[] result = new long[3];
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(1703697618061L);
+        result[0] = cal.get(Calendar.DAY_OF_MONTH);
+        result[1] = cal.get(Calendar.MONTH) + 1;
+        result[2] = cal.get(Calendar.HOUR_OF_DAY) + 1;
+        System.out.println(result[0] + " , " + result[1] + " , " + result[2]);
     }
 
 }

@@ -2,6 +2,9 @@ package com.cob.feedback.formula;
 
 import org.apache.commons.lang3.math.Fraction;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static com.cob.feedback.formula.FormulaConstants.DEFAULT_STEP;
 
 public class FormulaUtils {
@@ -12,6 +15,11 @@ public class FormulaUtils {
     }
 
     public static double calculatePercentage(double obtained, double total) {
-        return Math.round(obtained * 100 / total);
+        if(total == 0){
+            return 0;
+        }
+        BigDecimal rounded =  new BigDecimal(obtained * 100 / total).setScale(2, RoundingMode.HALF_UP);
+        return rounded.doubleValue();
+
     }
 }

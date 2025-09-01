@@ -69,8 +69,8 @@ public class ExcelReportService {
             for (Object o : serviceNameReturnData) {
                 Object[] plainValues = (Object[]) o;
                 excelReportResponses.add(ExcelReportResponse.builder()
-                        .patientName((String) plainValues[0])
-                        .feedback((String) plainValues[1])
+                        .patientName(getPatientName((String) plainValues[0], plainValues))
+                        .feedback(getFeedback((String) plainValues[1]))
                         .optionalFeedback((String) plainValues[2])
                         .clinicName(getClinicName((BigInteger) plainValues[4]))
                         .createdAt(createDate(((BigInteger) plainValues[3]).longValue()))
@@ -79,6 +79,28 @@ public class ExcelReportService {
             result.put(serviceName, excelReportResponses);
         }
         return result;
+    }
+
+    private String getPatientName(String fullName, Object[] plainValues) {
+        if (fullName.isEmpty()) {
+            return plainValues[5] + " " + plainValues[6];
+        }
+        return fullName;
+    }
+    private String getFeedback(String plainFeedback){
+        String cleanedFeedback = plainFeedback.replaceAll("^\"+|\"+$", "");
+        switch (cleanedFeedback){
+            case "VGood":
+                return "Excellent";
+            case "Good":
+                return "Average";
+            case "VSad":
+            case "Sad":
+                return "Needs Improvement";
+            default:
+                return plainFeedback;
+        }
+
     }
 
     private String getClinicName(BigInteger clinicId) {

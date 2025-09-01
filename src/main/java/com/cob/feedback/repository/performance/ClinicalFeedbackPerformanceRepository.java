@@ -12,7 +12,7 @@ public interface ClinicalFeedbackPerformanceRepository extends PerformanceReposi
             "and JSON_EXTRACT(feedback_questions, '$.clinicalFeedback')= :feedback", nativeQuery = true)
     Integer count(Long startDate, Long endDate, Long clinicId, String feedback);
 
-    @Query(value = "select patient_name,JSON_EXTRACT(feedback_questions, '$.clinicalFeedback'),optional_feedback , created_at, clinic_id  from patient_feedback a " +
+    @Query(value = "select patient_name,JSON_EXTRACT(feedback_questions, '$.clinicalFeedback'),optional_feedback , created_at, clinic_id , first_name,last_name  from patient_feedback a " +
             "where a.created_at>= :startDate " +
             "and a.created_at<= :endDate " +
             "and a.clinic_id IN (:clinicIds) " +

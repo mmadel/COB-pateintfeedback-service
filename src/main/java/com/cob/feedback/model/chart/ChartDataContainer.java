@@ -16,9 +16,10 @@ public class ChartDataContainer {
     }
     List<Object[]> plainData;
     private Map<Long, List<ChartResult>> groupedData;
-    private Map<Long, long[][]> countedData;
+    private Map<Long, int[][]> countedData;
 
     Map<Long, double[][]> calculatedData;
     ChartTimeUnit chartTimeUnit;
+    String timeZone;
 
 }

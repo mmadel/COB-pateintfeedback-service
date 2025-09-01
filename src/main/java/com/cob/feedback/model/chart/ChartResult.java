@@ -12,18 +12,14 @@ public class ChartResult {
     Long time;
     FeedbackQuestion feedbackValue;
 
-    public long getDay() {
-        return TimeUtils.getDayInMilliSeconds(time)[0];
-    }
-
-    public long getGroupedValue(ChartTimeUnit timeUnit) {
-        switch (timeUnit){
+    public long getGroupedValue(ChartTimeUnit timeUnit, String timeZone) {
+        switch (timeUnit) {
             case Day:
-                return TimeUtils.getDayInMilliSeconds(time)[2];
+                return TimeUtils.getDayInMilliSeconds(time, timeZone)[2];
             case Month:
-                return TimeUtils.getDayInMilliSeconds(time)[0];
+                return TimeUtils.getDayInMilliSeconds(time, timeZone)[0];
             case Year:
-                return TimeUtils.getDayInMilliSeconds(time)[1];
+                return TimeUtils.getDayInMilliSeconds(time, timeZone)[1];
         }
         return 0;
     }

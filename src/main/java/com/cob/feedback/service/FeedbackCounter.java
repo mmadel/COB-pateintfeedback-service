@@ -15,7 +15,8 @@ public class FeedbackCounter {
         int counter = 0;
         PerformanceRepository performanceRepository = ServiceFeedbackRepositoryBuilder.build(serviceName);
         for (FeedbackFeeling feeling : FeedbackFeeling.values()) {
-            feedbackValues[counter++] = performanceRepository.count(dateFrom, dateTo, clinicId, feeling.label);
+            if (!feeling.equals(FeedbackFeeling.VSad))
+                feedbackValues[counter++] = performanceRepository.count(dateFrom, dateTo, clinicId, feeling.label);
         }
 
         /*
@@ -34,11 +35,11 @@ public class FeedbackCounter {
         DBCounterContainer dbCounterContainer = new DBCounterContainer();
         int[] counter = count(dateFrom, dateTo, clinicId, serviceName);
         double[] percentage = new double[4];
-        int total = counter[0] + counter[1] + counter[2] + counter[3];
+        int total = counter[0] + counter[1] + counter[2] + 0;
         percentage[0] = FormulaUtils.calculatePercentage(counter[0], total);
         percentage[1] = FormulaUtils.calculatePercentage(counter[1], total);
         percentage[2] = FormulaUtils.calculatePercentage(counter[2], total);
-        percentage[3] = FormulaUtils.calculatePercentage(counter[3], total);
+        //percentage[3] = FormulaUtils.calculatePercentage(counter[3], total);
         dbCounterContainer.setCounters(counter);
         dbCounterContainer.setPercentages(percentage);
         return dbCounterContainer;

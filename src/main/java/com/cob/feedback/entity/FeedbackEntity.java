@@ -30,6 +30,12 @@ public class FeedbackEntity {
     private FeedbackQuestion feedbackQuestions;
     @Column(name = "patient_name")
     private String patientName;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "optional_feedback", length = 3000)
     private String optionalFeedback;
 
