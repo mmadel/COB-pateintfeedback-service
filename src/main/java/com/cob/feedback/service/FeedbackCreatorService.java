@@ -26,7 +26,7 @@ public class FeedbackCreatorService {
     ClinicRepository clinicRepository;
 
     public Feedback create(Feedback model){
-        log.info("feedback has been sent for clinic ",model.getClinicId());
+        log.info("feedback has been sent for clinic {}",model.getClinicId());
         ClinicEntity clinicEntity = clinicRepository.findById(model.getClinicId())
                 .orElseThrow(() -> new IllegalArgumentException("Error Find Clinic "+ model.getClinicId()));
         FeedbackEntity feedbackEntity = mapper.map(model , FeedbackEntity.class);

@@ -15,6 +15,9 @@ public class FormulaUtils {
     }
 
     public static double calculatePercentage(double obtained, double total) {
+        if(total == 0){
+            return 0;
+        }
         BigDecimal rounded =  new BigDecimal(obtained * 100 / total).setScale(2, RoundingMode.HALF_UP);
         return rounded.doubleValue();
 
