@@ -11,6 +11,7 @@ public class ExcelReportResponse {
     String patientName;
     String feedback;
     String optionalFeedback;
+    String serviceName;
     String createdAt;
 
     String clinicName;

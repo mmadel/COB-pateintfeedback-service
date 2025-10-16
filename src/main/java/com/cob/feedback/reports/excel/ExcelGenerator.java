@@ -52,7 +52,8 @@ public class ExcelGenerator {
                     createCell(row, columnCount++, excelReportResponse.getFeedback().replaceAll("^\"|\"$", ""), null);
                     createCell(row, columnCount++, excelReportResponse.getOptionalFeedback(), null);
                     createCell(row, columnCount++, excelReportResponse.getClinicName(), null);
-                    createCell(row, columnCount, excelReportResponse.getCreatedAt(), null);
+                    createCell(row, columnCount++, excelReportResponse.getCreatedAt(), null);
+                    createCell(row, columnCount, excelReportResponse.getServiceName(), null);
                 });
 
     }
@@ -71,6 +72,6 @@ public class ExcelGenerator {
     }
 
     private void setColumnsNames() {
-        columns = new String[]{"Patient Name ", "Feedback", "Comment ", "Location", "Created Date"};
+        columns = new String[]{"Patient Name ", "Feedback", "Comment ", "Location", "Created Date", "Service"};
     }
 }

@@ -8,7 +8,6 @@ import com.cob.feedback.model.reports.ExcelReportResponse;
 import com.cob.feedback.reports.excel.ExcelGenerator;
 import com.cob.feedback.repository.performance.ClinicalFeedbackPerformanceRepository;
 import com.cob.feedback.repository.performance.HospitalityFeedbackPerformanceRepository;
-import com.cob.feedback.service.clinic.ClinicServiceFinder;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ExcelReportService {
+    private final String SHEET_NAME = "Survey Data";
     private String timeZone;
     private List<Clinic> clinics;
     @Autowired
@@ -71,6 +71,7 @@ public class ExcelReportService {
                 excelReportResponses.add(ExcelReportResponse.builder()
                         .patientName(getPatientName((String) plainValues[0], plainValues))
                         .feedback(getFeedback((String) plainValues[1]))
+                        .serviceName(serviceName.name())
                         .optionalFeedback((String) plainValues[2])
                         .clinicName(getClinicName((BigInteger) plainValues[4]))
                         .createdAt(createDate(((BigInteger) plainValues[3]).longValue()))
@@ -87,9 +88,10 @@ public class ExcelReportService {
         }
         return fullName;
     }
-    private String getFeedback(String plainFeedback){
+
+    private String getFeedback(String plainFeedback) {
         String cleanedFeedback = plainFeedback.replaceAll("^\"+|\"+$", "");
-        switch (cleanedFeedback){
+        switch (cleanedFeedback) {
             case "VGood":
                 return "Excellent";
             case "Good":
@@ -129,11 +131,18 @@ public class ExcelReportService {
         String[] serviceNames = data.keySet().stream()
                 .map(ServiceName::name)
                 .toArray(String[]::new);
-        XSSFWorkbook workbook = createExcelDocument(serviceNames);
-        data.forEach((serviceName, excelReportResponse) -> {
-            String sheetName = serviceName.name().substring(0, 1).toUpperCase() + serviceName.name().substring(1).toLowerCase();
-            excelGenerator.fillSheet(workbook.getSheet(sheetName), excelReportResponse);
-        });
+        //XSSFWorkbook workbook = createExcelDocument(serviceNames);
+        XSSFWorkbook workbook = createExcelDocument();
+
+        List<ExcelReportResponse> allReports = data.entrySet().stream()
+                .flatMap(entry -> entry.getValue().stream()
+                        .peek(report -> report.setServiceName(entry.getKey().name())))
+                .collect(Collectors.toList());
+        excelGenerator.fillSheet(workbook.getSheet(SHEET_NAME), allReports);
+//        data.forEach((serviceName, excelReportResponse) -> {
+//            String sheetName = serviceName.name().substring(0, 1).toUpperCase() + serviceName.name().substring(1).toLowerCase();
+//            excelGenerator.fillSheet(workbook.getSheet(sheetName), excelReportResponse, serviceName.name());
+//        });
         return workbook;
     }
 
@@ -142,6 +151,12 @@ public class ExcelReportService {
         for (String sheetName : serviceNames) {
             excelGenerator.createSheet(workbook, sheetName);
         }
+        return workbook;
+    }
+
+    private XSSFWorkbook createExcelDocument() {
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        excelGenerator.createSheet(workbook, SHEET_NAME);
         return workbook;
     }
 
